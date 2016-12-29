@@ -24,19 +24,6 @@ var authy = require('authy')("YBDqeRMkefWP7lSWkv0WR2ors33XJvJe");
 var twilioClient = require('twilio')(sid, token);
 
 
-var port = Number(process.env.PORT || 9000);
-/*var schema = require("./schema");*/
-
-app.use(function (req, res) {
-  res.header('Access-Control-Allow-Credentials', true);
-  res.header('Access-Control-Allow-Origin', req.headers.origin);
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header(
-    'Access-Control-Allow-Headers',
-    'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept'
-  );
-});
-
 app.get("*", function (req, res) {
  res.sendFile(publicDirPath + "/index.html");
  });
@@ -105,6 +92,8 @@ app.post('/recover', function (req, res) {
 });
 
 
-app.listen(port, function () {
-  console.log("Server started on port 9000")
+app.set('port', process.env.PORT || 3000);
+
+app.listen(app.get('port'), function() {
+    console.log("App started on port")
 });

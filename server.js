@@ -15,8 +15,8 @@ app.use(logger("dev"));
 app.use(cookie());
 app.use(cors());
 
-var sid = "ACf2d28794aa7e17939b16133113518409";
-var token = "3d8b88787cf7d13597718c83108d88c8";
+var sid = "AC2fc91459e998502a55665c28f6db97e7";
+var token = "c8b3cdeb088790434e45237529224827";
 
 
 var authy = require('authy')("YBDqeRMkefWP7lSWkv0WR2ors33XJvJe");
@@ -30,8 +30,8 @@ app.get("*", function (req, res) {
 app.post('/sendSms', function (req, res) {
     twilioClient.sendMessage({
         to: req.body.phone,
-        from: "+12052368776",
-        body: "Welcome to Notification App, Your verification code is " + req.body.code
+        from: "+18664182126",
+        body: "Test Message, Your verification code is " + req.body.code
     }, function (err, response) {
         if (err) {
             res.send("error")

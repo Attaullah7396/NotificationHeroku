@@ -1,10 +1,18 @@
 var path = require("path");
 var express = require("express");
+var bodyParser = require("body-parser");
+var logger = require("morgan");
+var cookie = require("cookie-parser");
 var cors = require('cors');
 var app = express();
 
+
 var publicDirPath = path.resolve(__dirname, "www");
 app.use(express.static(publicDirPath));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(logger("dev"));
+app.use(cookie());
 app.use(cors());
 
 var sid = "ACf2d28794aa7e17939b16133113518409";

@@ -31,7 +31,7 @@ app.post('/sendSms', function (req, res) {
     twilioClient.sendMessage({
         to: req.body.phone,
         from: "+18664182126",
-        body: "Test Message, Your verification code is " + req.body.code
+        body: "Welcome to Faisal Zubair Vohra Notification App, Your verification code is " + req.body.code
     }, function (err, response) {
         if (err) {
             res.send("error")

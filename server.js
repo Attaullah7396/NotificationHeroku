@@ -5,6 +5,14 @@ var logger = require("morgan");
 var cookie = require("cookie-parser");
 var cors = require('cors');
 var app = express();
+var ionicPushServer = require('ionic-push-server');
+
+
+var credentials = {
+    IonicApplicationID : "e772a91c",
+    IonicApplicationAPItoken : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0YjAxMjBlNS04YWYwLTQwNGUtYTUwOS1iODQ2NThmODEzMzQifQ.TZShhMQzR_lT9SzkQ9bAmlX8Cgu59joLAtI8X1DWj4o"
+};
+
 
 
 var publicDirPath = path.resolve(__dirname, "www");
@@ -42,7 +50,31 @@ app.post('/sendSms', function (req, res) {
 
 });
 
-// from: "+12052368776",
+
+app.post('/notify', function (req, res) {
+    console.log("request aa gae");
+    var notification = {
+        //"tokens": ["emt9fvLy8rY:APA91bEXEHXLwf3PTz3RnVb6pUsvZqTs66qn6A3gniqUZ17YsUpredx4Ik2PzAPZA8NrdK23p-QKTUq9IntJDYL-nw85Fi94K9BnoY7_2JoknwqIFA1Wo9ZUaRrvjuQO2gBp9hIt6G98"],
+        "tokens": req.body.tokenList,
+        "profile": "my_security_profile",
+        "notification": {
+            "title": "New post added",
+            "message": req.body.postData,
+            "android": {
+                "title": "New post added",
+                "message": req.body.postData
+            },
+            "ios": {
+                "title": "New post added",
+                "message": req.body.postData
+            }
+        }
+    };
+
+    ionicPushServer(credentials, notification);
+
+});
+
 
 app.set('port', process.env.PORT || 3000);
 
